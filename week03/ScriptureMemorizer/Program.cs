@@ -1,36 +1,44 @@
 using System;
 
-class TestScriptureMemorizer
+class Program
 {
     static void Main(string[] args)
     {
-        // Test Reference constructors
-        Reference ref1 = new Reference("John", 3, 16);
-        Console.WriteLine($"Reference single verse: {ref1.GetBook()} {ref1.GetChapter()}:{ref1.GetVerseStart()}");
+        // Create a Reference object for a scripture with verse range
+        Reference reference = new Reference("Proverbs", 3, 5, 6);
 
-        Reference ref2 = new Reference("Proverbs", 3, 5, 6);
-        Console.WriteLine($"Reference verse range: {ref2.GetBook()} {ref2.GetChapter()}:{ref2.GetVerseStart()}-{ref2.GetVerseEnd()}");
+        // Scripture text for the reference
+        string scriptureText = "Trust in the Lord with all your heart and lean not on your own understanding";
 
-        // Test Word class
-        Word word = new Word("example");
-        Console.WriteLine($"Word display (not hidden): {word.Display()}");
-        word.Hide();
-        Console.WriteLine($"Word display (hidden): {word.Display()}");
+        // Create a Scripture object
+        Scripture scripture = new Scripture(reference, scriptureText);
 
-        // Test Scripture class
-        string text = "Trust in the Lord with all your heart";
-        Scripture scripture = new Scripture(ref2, text);
+        // Display the full scripture initially
         scripture.Display();
 
-        scripture.HideRandomWords(2);
-        scripture.Display();
+        while (true)
+        {
+            Console.WriteLine();
+            Console.Write("Press Enter to hide words or type 'quit' to exit: ");
+string input = Console.ReadLine();
 
-        Console.WriteLine($"All words hidden? {scripture.AllWordsHidden()}");
+if (input != null && input.Trim().ToLower() == "quit")
+{
+    break;
+}
 
-        // Hide all words
-        scripture.HideRandomWords(scripture.GetWords().Count);
-        scripture.Display();
+            // Hide 2 random words
+            scripture.HideRandomWords(2);
 
-        Console.WriteLine($"All words hidden? {scripture.AllWordsHidden()}");
+            // Display the scripture again
+            scripture.Display();
+
+            // If all words are hidden, end the program
+            if (scripture.AllWordsHidden())
+            {
+                Console.WriteLine("All words are hidden. Program will exit.");
+                break;
+            }
+        }
     }
 }
