@@ -55,11 +55,12 @@ public class Journal
                 var parts = line.Split(',');
                 if (parts.Length >= 3)
                 {
-                    var entry = new Entry(parts[0], parts[1]) 
+                    DateTime parsedDate;
+                    if (DateTime.TryParse(parts[2], out parsedDate))
                     {
-                        Date = DateTime.Parse(parts[2])
-                    };
-                    _entries.Add(entry);
+                        var entry = new Entry(parts[0], parts[1], parsedDate);
+                        _entries.Add(entry);
+                    }
                 }
             }
         }

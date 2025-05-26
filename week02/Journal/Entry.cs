@@ -14,6 +14,14 @@ public class Entry
         Date = DateTime.Now; // Set to current date and time
     }
 
+    // New constructor overload to set Date explicitly
+    public Entry(string prompt, string response, DateTime date)
+    {
+        Prompt = prompt;
+        Response = response;
+        Date = date;
+    }
+
     public override string ToString()
     {
         return $"{Date}: {Prompt}\nResponse: {Response}\n";
